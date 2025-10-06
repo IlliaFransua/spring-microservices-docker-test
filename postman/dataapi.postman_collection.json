@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "95336f6a-6cc4-4de0-936d-f84da349faa6",
+		"name": "dataapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42961704"
+	},
+	"item": [
+		{
+			"name": "Expected Failed Status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/transform/helloWorld",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"transform",
+						"helloWorld"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Expected Successful status",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Internal-Token",
+						"value": "yK1pt3k7GMV6TJrhD41kTrjvsZ5j2dSPHVMD1EGjKBxPc%1YXcYh9f@VzcGjS",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/transform/helloWorld",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"transform",
+						"helloWorld"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

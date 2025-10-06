@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: mini_test_postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: mini_test_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init__mini_test_db.sql:/docker-entrypoint-initdb.d/init_roles.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d mini_test_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+
+  dataapi:
+    build: ./dataapi
+    container_name: dataapi
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8081:8081"
+    networks:
+      - app_network
+    depends_on:
+      - postgres
+
+  authapi:
+    build: ./authapi
+    container_name: authapi
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mini_test_db
+    networks:
+      - app_network
+    depends_on:
+      - postgres
+      - dataapi
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
