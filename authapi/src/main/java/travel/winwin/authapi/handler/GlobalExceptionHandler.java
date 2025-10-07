@@ -20,10 +20,10 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(DataApiException.class)
   public ResponseEntity<ErrorResponse> handleDataApiException(DataApiException e) {
-    log.error("DataApi unexpected error: url={} -> {}", e.getUrl(), e.getMessage(), e);
+    log.error("Unexpected DataAPI error", e);
 
-    return ResponseEntity.status(e.getStatusCode())
-        .body(new ErrorResponse("Internal server error", e.getStatusCode()));
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body(new ErrorResponse("Internal server error"));
   }
 
   @ExceptionHandler(Exception.class)
@@ -31,14 +31,14 @@ public class GlobalExceptionHandler {
     log.error("Unexpected error", e);
 
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(new ErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR));
+        .body(new ErrorResponse("Internal server error"));
   }
 
   @ExceptionHandler(DatabaseException.class)
   public ResponseEntity<ErrorResponse> handleDatabaseException(DatabaseException e) {
-    log.warn("DatabaseError: {} - Status: {}", e.getMessage(), e.getStatusCode());
+    log.warn("Unexpected Database error", e);
 
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(new ErrorResponse("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR));
+        .body(new ErrorResponse("Internal server error"));
   }
 }

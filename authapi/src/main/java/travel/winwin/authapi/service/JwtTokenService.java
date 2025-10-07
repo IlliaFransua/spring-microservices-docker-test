@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.util.Base64;
 import java.util.Date;
 import javax.crypto.SecretKey;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,8 @@ public class JwtTokenService {
 
   private final SecretKey secret;
 
+  @Getter
   private final long jwtExpirationMs;
-
-  public long getJwtExpirationMs() {
-    return jwtExpirationMs;
-  }
 
   public JwtTokenService(
       @Value("${jwt.secret}") String secret, @Value("${jwt.expiration-ms}") long jwtExpirationMs) {
@@ -54,7 +52,6 @@ public class JwtTokenService {
   @SuppressWarnings("deprecation")
   public String getEmailFromToken(String token) {
     Claims claims = Jwts.parser().setSigningKey(secret).build().parseClaimsJws(token).getBody();
-
     return claims.getSubject();
   }
 }

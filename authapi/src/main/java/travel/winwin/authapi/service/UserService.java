@@ -30,7 +30,7 @@ public class UserService {
   public void register(String email, String rawPassword) {
     if (findByEmail(email).isPresent()) {
       throw new DatabaseException(
-          "Registration is failed. User already exists with email: " + email, HttpStatus.CONFLICT);
+          "Registration is failed. User already exists with email: " + email);
     }
     String hashedPassword = passwordEncoder.encode(rawPassword);
     User user = new User();
@@ -60,7 +60,7 @@ public class UserService {
 
     Optional<User> optionalUser = findByEmail(email);
     if (optionalUser.isEmpty()) {
-      throw new DatabaseException("User is authenticated but findByEmail cause null", HttpStatus.UNAUTHORIZED);
+      throw new DatabaseException("User is authenticated but UserService.findByEmail cause null");
     }
 
     User user = optionalUser.get();

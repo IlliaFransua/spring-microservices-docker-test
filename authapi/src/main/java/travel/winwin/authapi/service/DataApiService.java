@@ -45,7 +45,7 @@ public class DataApiService {
           restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
       return response.getBody();
     } catch (RestClientException e) {
-      throw new DataApiException("Data Api Communication Error", e, HttpStatus.INTERNAL_SERVER_ERROR, null, url);
+      throw new DataApiException("DataApi communication error", e);
     }
   }
 }
