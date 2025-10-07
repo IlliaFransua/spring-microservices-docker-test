@@ -25,30 +25,14 @@ public class AuthController {
 
   private final UserService userService;
   private final JwtTokenService jwtTokenService;
-  private final DataApiService dataApiService;
 
   @Value("${cookie.secure:true}")
   private boolean isSecureCookie;
 
   public AuthController(
-      UserService userService, JwtTokenService jwtTokenService, DataApiService dataApiService) {
+      UserService userService, JwtTokenService jwtTokenService) {
     this.userService = userService;
     this.jwtTokenService = jwtTokenService;
-    this.dataApiService = dataApiService;
-  }
-
-  @PostMapping("/process")
-  public ResponseEntity<String> process(@RequestBody TransformTextRequest request) {
-    log.info("Processing text transform request. Text length = {}", request.text().length());
-
-    String inputText = request.text();
-    String outputText = dataApiService.transformText(request.text());
-
-    log.debug("Text transformation completed successfully. Text length = {}", outputText.length());
-
-    userService.logUserTextTransformResult(inputText, outputText);
-
-    return ResponseEntity.ok(outputText);
   }
 
   @PostMapping("/register")

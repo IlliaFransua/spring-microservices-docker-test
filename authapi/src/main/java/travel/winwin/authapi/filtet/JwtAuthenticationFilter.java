@@ -80,7 +80,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
     String path = request.getRequestURI();
     String method = request.getMethod();
-    boolean shouldSkip = !path.startsWith("/api/v1/auth/process");
+    boolean shouldSkip = !path.startsWith("/api/v1/data");
 
     if (shouldSkip) {
       log.debug("Skipping Jwt filter in request to {} {}", method, path);
