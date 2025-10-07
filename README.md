@@ -1,4 +1,4 @@
-🛑 **This repository is strictly an educational and demonstration project.** It's designed to show how certain functionality is implemented. **Because of this,** configuration files (like .env) are included to simplify running the code locally.
+🛑 **This repository is strictly an educational and demonstration project.** It's designed to show how certain functionality is implemented. **Because of this,** configuration files (like `.env`) are included to simplify running the code locally.
 
 ## 1. Build and start
 
