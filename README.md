@@ -2,14 +2,10 @@
 
 ```bash
 # build authapi
-cd authapi
-mvn clean package -DskipTests
-cd ..
+cd authapi && mvn clean package -DskipTests && cd ..
 
 # build dataapi
-cd dataapi
-mvn clean package -DskipTests
-cd ..
+cd dataapi && mvn clean package -DskipTests && cd ..
 
 # remove old containers and volumes (it will also reset DB)
 docker compose down -v
